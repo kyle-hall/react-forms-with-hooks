@@ -1,33 +1,90 @@
-import React from 'react'
+import React, { useState } from 'react'
 import 'nes.css/css/nes.css'
 
-export const Signup = props => (
-  <form style={{ ...styles.form, ...styles.typ }}>
-    <fieldset style={styles.fieldset}>
-      <legend style={styles.legend}>Name</legend>
-      <label for='firstName'>First Name</label>
-      <input className='nes-input' type='text' name='firstName' id='firstName' required />
-      <label for='lastName'>Last Name</label>
-      <input className='nes-input' type='text' name='lastName' id='lastName' required />
-    </fieldset>
-    <fieldset style={styles.fieldset}>
-      <legend style={styles.legend}>Contact</legend>
-      <label for='emailInput'>Email Address</label>
-      <input className='nes-input' type='email' name='email' id='emailInput' required />
-    </fieldset>
-    <fieldset style={styles.fieldset}>
-      <legend style={styles.legend}>Password</legend>
-      <label for='passwordInput'>Password</label>
-      <input className='nes-input' type='password' name='password1' id='passwordInput' />
+export const Signup = () => {
+  const [state, setState] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    passwordConfirm: ''
+  })
 
-      <label for='passwordConfirm'>Re-enter Password</label>
-      <input className='nes-input' type='password' name='passwordConfirm' id='passwordConfirm' />
-    </fieldset>
-    <button className='nes-btn' style={styles.typ} type='submit'>
-      Sign Up
-    </button>
-  </form>
-)
+  const { firstName, lastName, email, password, passwordConfirm } = state
+
+  return (
+    <form style={{ ...styles.form, ...styles.typ }}>
+      <fieldset style={styles.fieldset}>
+        <legend style={styles.legend}>Name</legend>
+        <label for='firstName'>First Name</label>
+        <input
+          className='nes-input'
+          type='text'
+          value={firstName}
+          name='firstName'
+          id='firstName'
+          required
+          onChange={handleInputChange(setState)}
+        />
+        <label for='lastName'>Last Name</label>
+        <input
+          className='nes-input'
+          type='text'
+          value={lastName}
+          name='lastName'
+          onChange={handleInputChange(setState)}
+          id='lastName'
+          required
+        />
+      </fieldset>
+      <fieldset style={styles.fieldset}>
+        <legend style={styles.legend}>Contact</legend>
+        <label for='emailInput'>Email Address</label>
+        <input
+          className='nes-input'
+          type='email'
+          value={email}
+          name='email'
+          id='emailInput'
+          onChange={handleInputChange(setState)}
+          required
+        />
+      </fieldset>
+      <fieldset style={styles.fieldset}>
+        <legend style={styles.legend}>Password</legend>
+        <label for='passwordInput'>Password</label>
+        <input
+          className='nes-input'
+          type='password'
+          value={password}
+          name='password'
+          id='passwordInput'
+          onChange={handleInputChange(setState)}
+        />
+        <label for='passwordConfirm'>Re-enter Password</label>
+        <input
+          className='nes-input'
+          type='password'
+          value={passwordConfirm}
+          name='passwordConfirm'
+          id='passwordConfirm'
+          onChange={handleInputChange(setState)}
+        />
+      </fieldset>
+      <button className='nes-btn' style={styles.type} type='submit'>
+        Sign Up
+      </button>
+    </form>
+  )
+}
+
+const handleInputChange = setState => event => {
+  const {
+    target: { name, value }
+  } = event
+
+  setState({ [name]: value })
+}
 
 const styles = {
   form: {
@@ -58,7 +115,7 @@ const styles = {
     borderStyle: 'solid',
     borderRadius: 8
   },
-  typ: {
+  type: {
     fontFamily: 'Press Start 2P, sans-serif'
   }
 }
